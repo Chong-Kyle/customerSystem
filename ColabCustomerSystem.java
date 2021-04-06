@@ -81,5 +81,12 @@ class CustomerSystem{
     /*******************************************************************
     *       ADDITIONAL METHODS MAY BE ADDED BELOW IF NECESSARY         *
     *******************************************************************/
-    //test 3
+    public static String reverse(String cardNumber){
+        int len = cardNumber.length();
+        String result = "";
+        for (int i = len - 1; i >= 0; i--) {
+            result = result + cardNumber.charAt(i);
+        }
+        return result;
+    }
 }
