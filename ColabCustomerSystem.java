@@ -76,7 +76,7 @@ class CustomerSystem{
         int numOfDigits = reverseCardNum.length();
         int numSum = 0;
         boolean evenDigit = false; 
-        for (int i = numOfDigits - 1; i >= 0; i--) {
+        for (int i = 0; i <= numOfDigits - 1; i++) {
             int n = reverseCardNum.charAt(i) - '0';
             if (evenDigit == true){
                 n = n*2;
