@@ -1,7 +1,9 @@
-// Throughout this project, the use of data structures are not permitted such as methods like .split and .toCharArray
-
-
-
+/*
+ * Date: April 1st - April 8th, 2021
+ * Name: Kyle Chong & Angus Whitehead
+ * Teacher: Mr. Ho
+ * Description: Customer System Assignment
+ */
 
 import java.util.Scanner;
 // More packages may be imported in the space below
@@ -62,6 +64,7 @@ class CustomerSystem{
     * The method may not nesessarily be a void return type
     * This method may also be broken down further depending on your algorithm
     */
+    //validateCreditCard(reverseCardNum, cardNumber); - Use later
     public static void validatePostalCode(){
     }
     /*
@@ -69,18 +72,28 @@ class CustomerSystem{
     * The method may not nesessarily be a void return type
     * This method may also be broken down further depending on your algorithm
     */
-    public static void validateCreditCard(){
+    public static void validateCreditCard(String reverseCardNum, String cardNumber){
+        int numOfDigits = reverseCardNum.length();
+        int numSum = 0;
+        boolean evenDigit = false; 
+        for (int i = numOfDigits - 1; i >= 0; i--) {
+            int n = reverseCardNum.charAt(i) - '0';
+            if (evenDigit == true){
+                n = n*2;
+            }
+            numSum += n / 10;
+            numSum += n % 10;
+            evenDigit = !evenDigit;            
+        }
+        if (numSum % 10 == 0) {
+            System.out.println(cardNumber + " is a valid Credit Card");
+        }
+        else 
+            System.out.println(cardNumber + " is not a valid Credit Card");
     }
-    /*
-    * This method may be edited to achieve the task however you like.
-    * The method may not nesessarily be a void return type
-    * This method may also be broken down further depending on your algorithm
-    */
     public static void generateCustomerDataFile(){
     }
-    /*******************************************************************
-    *       ADDITIONAL METHODS MAY BE ADDED BELOW IF NECESSARY         *
-    *******************************************************************/
+    
     public static String reverse(String cardNumber){
         int len = cardNumber.length();
         String result = "";
