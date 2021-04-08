@@ -58,7 +58,7 @@ class ColabCustomerSystem{
         );
     }
 
-    //Enter Customer Information Method
+    //Enter Customer Information Method - KYLE
     public static void enterCustomerInfo(Scanner reader) throws IOException{
         boolean invalid = true;
         //Prompt User input for First Name and Last Name
@@ -86,7 +86,7 @@ class ColabCustomerSystem{
         //Do-while loop. Keeps looping until valid credit card passes Luhn Algorithm
         invalid = true;
         do {
-            System.out.println("Please Enter Your Credit Card (Must be longer than or equal to 9 digits): \n");
+            System.out.println("Please Enter Your Credit Card (Must be longer than or equal to 9 digits): ");
             cardNumber = reader.nextLine().trim();
             numSum = 0;
             //Checks for length of credit card. If it's less than 9 digits, credit card is invalid
@@ -101,7 +101,7 @@ class ColabCustomerSystem{
         } while (invalid);
     }
 
-    //Validate Postal Code Method. Searches CSV file
+    //Validate Postal Code Method. Searches CSV file - KYLE
     public static boolean validatePostalCode(boolean invalid) throws IOException{
         Scanner fileReader;
         String filePath = "postal_codes.csv";
@@ -139,7 +139,7 @@ class ColabCustomerSystem{
         return invalid;
     }
 
-    //Validate Credit Card Method. Luhn Algorithm
+    //Validate Credit Card Method. Luhn Algorithm - KYLE
     public static boolean validateCreditCard(boolean invalid){    
         String reverseCardNum = reverse(cardNumber);    //Calls the reverse method to reverse the order of 'cardNumber'
         int numOfDigits = reverseCardNum.length();  //Takes the length of the card number
@@ -165,13 +165,13 @@ class ColabCustomerSystem{
         //Returns the boolean value invalid. Used to stop the for loop
         return invalid;
     }
-	
+	//ANGUS
     public static void generatIDNumber(){
       Random rand = new Random();
 	    int randNum = rand.nextInt(10000);
 	    System.out.println("Your ID Number is " + randNum);  
     }
-	
+	//ANGUS
     public static void generateCustomerDataFile(){
 	     while(!invalid){
         System.out.println("Hello " + fName + lName + "from " + province + " Canada.");
@@ -182,7 +182,7 @@ class ColabCustomerSystem{
       }
     }
     
-    //Reverse Method. Reverse a string
+    //Reverse Method. Reverse a string - KYLE
     public static String reverse(String cardNumber){
         int len = cardNumber.length();
         String result = "";
