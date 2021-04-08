@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.Random;
 // More packages may be imported in the space below
 
-class CustomerTest{
+class ColabCustomerSystem{
     //Private Static Variables (For use outside and inside methods)
     private static int numSum;
     private static String cardNumber;
