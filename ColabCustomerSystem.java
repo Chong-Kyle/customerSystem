@@ -162,6 +162,7 @@ class CustomerTest{
         System.out.println("Hello " + fName + lName + "from " + province + " Canada.");
         System.out.println("Credit Card Number: " + cardNumber);
         System.out.println("Postal Code: " + postalCode);
+	System.out.println("Your ID Number is " + randNum);	     
 
       }
     }
