@@ -8,6 +8,7 @@
 import java.util.Scanner;
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 // More packages may be imported in the space below
 
 class CustomerTest{
@@ -149,7 +150,20 @@ class CustomerTest{
         }    
         return invalid;
     }
+	
+    public static void generatIDNumber(){
+      Random rand = new Random();
+	    int randNum = rand.nextInt(10000);
+	    System.out.println("Your ID Number is " + randNum);  
+    }
+	
     public static void generateCustomerDataFile(){
+	     while(!invalid){
+        System.out.println("Hello " + fName + lName + "from " + province + " Canada.");
+        System.out.println("Credit Card Number: " + cardNumber);
+        System.out.println("Postal Code: " + postalCode);
+
+      }
     }
     
     public static String reverse(String cardNumber){
