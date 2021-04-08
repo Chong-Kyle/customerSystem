@@ -6,10 +6,18 @@
  */
 
 import java.util.Scanner;
+import java.io.File;
+import java.io.IOException;
 // More packages may be imported in the space below
 
-class CustomerSystem{
-    public static void main(String[] args){
+class CustomerTest{
+    private static int numSum;
+    private static String cardNumber;
+    private static String fName = "";
+    private static String lName = "";
+    private static String userPostal = "";
+
+    public static void main(String[] args) throws IOException{
         // Please do not edit any of these variables
         Scanner reader = new Scanner(System.in);
         String userInput, enterCustomerOption, generateCustomerOption, exitCondition;
@@ -19,19 +27,20 @@ class CustomerSystem{
 
         // More variables for the main may be declared in the space below
 
-
         do{
             printMenu();                                    // Printing out the main menu
             userInput = reader.nextLine();                  // User selection from the menu
-
             if (userInput.equals(enterCustomerOption)){
                 // Only the line below may be editted based on the parameter list and how you design the method return
 		        // Any necessary variables may be added to this if section, but nowhere else in the code
-                enterCustomerInfo();
+                enterCustomerInfo(reader);
             }
             else if (userInput.equals(generateCustomerOption)) {
                 // Only the line below may be editted based on the parameter list and how you design the method return
                 generateCustomerDataFile();
+            }
+            else if (userInput.equals(exitCondition)) {
+                
             }
             else{
                 System.out.println("Please type in a valid option (A number from 1-9)");
@@ -46,8 +55,6 @@ class CustomerSystem{
         System.out.println("Customer and Sales System\n"
         .concat("1. Enter Customer Information\n")
         .concat("2. Generate Customer data file\n")
-        .concat("3. Report on total Sales (Not done in this part)\n")
-        .concat("4. Check for fraud in sales data (Not done in this part)\n")
         .concat("9. Quit\n")
         .concat("Enter menu option (1-9)\n")
         );
@@ -57,24 +64,72 @@ class CustomerSystem{
     * The method may not nesessarily be a void return type
     * This method may also be broken down further depending on your algorithm
     */
-    public static void enterCustomerInfo() {
+    public static void enterCustomerInfo(Scanner reader) throws IOException{
+        boolean invalid = true;
+        System.out.println("Please Enter Your First Name: ");
+        fName = reader.nextLine();
+        System.out.println("Please Enter Your Last Name: ");
+        lName = reader.nextLine();
+        do {
+            System.out.println("Please Enter Your Postal Code (Must be longer than or equal to 3 digits): ");
+            userPostal = reader.nextLine().toUpperCase().trim();
+            if (userPostal.length() >= 3){
+                userPostal = userPostal.substring(0, 3);
+                invalid = validatePostalCode(invalid);
+            }
+            else {
+                System.out.println("Invalid Postal Code. Too Short");
+            }
+        } while (invalid);
+        invalid = true;
+        do {
+            System.out.println("Please Enter Your Credit Card (Must be longer than or equal to 9 digits): \n");
+            cardNumber = reader.nextLine().trim();
+            numSum = 0;
+            if (cardNumber.length() >= 9){
+                invalid = validateCreditCard(invalid);
+            }
+            else {
+                System.out.println("Invalid Credit Card. Too Short");
+            }
+        } while (invalid);
     }
-    /*
-    * This method may be edited to achieve the task however you like.
-    * The method may not nesessarily be a void return type
-    * This method may also be broken down further depending on your algorithm
-    */
-    //validateCreditCard(reverseCardNum, cardNumber); - Use later
-    public static void validatePostalCode(){
+    public static boolean validatePostalCode(boolean invalid) throws IOException{
+        Scanner fileReader;
+        String filePath = "postal_codes.csv";
+        boolean found = false;
+        String postalCode = ""; String placeName = ""; String province = ""; String latitude = ""; String longitude = "";
+        try {
+            fileReader = new Scanner(new File(filePath));
+            fileReader.useDelimiter("[|\n]");
+
+            while (fileReader.hasNext() && !found){
+                postalCode = fileReader.next();
+                placeName = fileReader.next();
+                province = fileReader.next();
+                latitude = fileReader.next();
+                longitude = fileReader.next();
+                //System.out.println(fileReader.hasNext());
+                if (postalCode.equals(userPostal)){
+                    found = true;
+                }
+            }
+            if (found){
+                System.out.println("Postal Code: " + postalCode + " Place: " + placeName + " Province: " + province + " Latitude: " + latitude + " Longitude: " + longitude);
+                invalid = false; 
+            }
+            else {
+                System.out.println("Postal Code Not Found");
+            }
+        }
+        catch (Exception e){
+            System.out.println("Invalid Input");
+        }
+        return invalid;
     }
-    /*
-    * This method may be edited to achieve the task however you like.
-    * The method may not nesessarily be a void return type
-    * This method may also be broken down further depending on your algorithm
-    */
-    public static void validateCreditCard(String reverseCardNum, String cardNumber){
+    public static boolean validateCreditCard(boolean invalid){
+        String reverseCardNum = reverse(cardNumber);
         int numOfDigits = reverseCardNum.length();
-        int numSum = 0;
         boolean evenDigit = false; 
         for (int i = 0; i <= numOfDigits - 1; i++) {
             int n = reverseCardNum.charAt(i) - '0';
@@ -87,9 +142,12 @@ class CustomerSystem{
         }
         if (numSum % 10 == 0) {
             System.out.println(cardNumber + " is a valid Credit Card");
+            invalid = false;
         }
-        else 
+        else {
             System.out.println(cardNumber + " is not a valid Credit Card");
+        }    
+        return invalid;
     }
     public static void generateCustomerDataFile(){
     }
